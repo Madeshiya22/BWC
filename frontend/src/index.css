@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ═══════════════════════════════════════════════════════
+   BATTLECODE GAMING ARENA — DESIGN SYSTEM
+   Neon Protocol v1.0 — Tactical Cyberpunk
+═══════════════════════════════════════════════════════ */
+
+:root {
+  /* Core Colors */
+  --bg:               #130719;
+  --surface-0:        #130719;
+  --surface-1:        #250d30;
+  --surface-2:        #381149;
+  --surface-3:        #501669;
+  --surface-4:        #5e147d;
+  --surface-bright:   #7813a2;
+
+  /* Accent Colors */
+  --primary:          #b500ff;
+  --primary-glow:     rgba(181, 0, 255, 0.35);
+  --primary-glow-sm:  rgba(181, 0, 255, 0.15);
+  --secondary:        #980ed1;
+  --secondary-glow:   rgba(152, 14, 209, 0.3);
+  --error:            #ff7351;
+  --outline:          #70767b;
+  --outline-dim:      rgba(112, 118, 123, 0.3);
+
+  /* Text */
+  --text-primary:     #e3e9ef;
+  --text-secondary:   #a6acb1;
+  --text-dim:         #50565b;
+
+  /* Fonts */
+  --font-display:     'Space Grotesk', sans-serif;
+  --font-body:        'Manrope', sans-serif;
+  --font-mono:        'JetBrains Mono', monospace;
+
+  /* Spacing */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px; --sp-12: 48px;
+
+  /* Glows */
+  --glow-primary: 0 0 8px var(--primary-glow), 0 0 30px var(--primary-glow-sm);
+  --glow-secondary: 0 0 8px var(--secondary-glow), 0 0 20px rgba(0,244,254,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scanline Overlay ─────────────────────────── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── Typography ───────────────────────────────── */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+.font-mono { font-family: var(--font-mono); }
+.font-display { font-family: var(--font-display); }
+
+/* ── Primary Neon Button ──────────────────────── */
+.btn-primary {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%;
+  padding: 10px 24px;
+  background: var(--primary);
+  color: #050a0e;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+.btn-primary::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: white;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.btn-primary:hover { box-shadow: var(--glow-primary); transform: translateY(-1px); }
+.btn-primary:hover::before { opacity: 0.08; }
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* ── Ghost / Google Button ────────────────────── */
+.btn-ghost {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%;
+  padding: 12px 24px;
+  background: var(--surface-3);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.9rem;
+  border: 1px solid var(--outline-dim);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-ghost:hover {
+  border-color: var(--secondary);
+  box-shadow: var(--glow-secondary);
+  background: var(--surface-4);
+}
+
+/* ── Input Fields ─────────────────────────────── */
+.field-group {
+  display: flex; flex-direction: column; gap: 6px;
+  position: relative;
+}
+.field-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.field-wrap {
+  position: relative;
+  display: flex; align-items: center;
+}
+.field-prefix {
+  position: absolute;
+  left: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  user-select: none;
+  z-index: 1;
+}
+.field-input {
+  width: 100%;
+  padding: 10px 40px 10px 28px;
+  background: var(--surface-1);
+  border: none;
+  border-bottom: 2px solid var(--outline-dim);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.field-input::placeholder { color: var(--text-dim); font-size: 0.8rem; }
+.field-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 2px 0 0 var(--primary-glow-sm);
+  background: var(--surface-2);
+}
+.field-input.error { border-color: var(--error); }
+.field-suffix {
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+  background: none; border: none; padding: 0;
+  display: flex; align-items: center;
+}
+.field-suffix:hover { color: var(--primary); }
+.field-error {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--error);
+  letter-spacing: 0.05em;
+}
+
+/* ── Divider ──────────────────────────────────── */
+.divider {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--outline-dim);
+}
+
+/* ── Blinking cursor ──────────────────────────── */
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+.cursor-blink {
+  display: inline-block;
+  width: 2px; height: 1em;
+  background: var(--primary);
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
+/* ── Pulse dot ────────────────────────────────── */
+@keyframes pulse-dot {
+  0%  { box-shadow: 0 0 0 0 rgba(181, 0, 255, 0.6); }
+  70% { box-shadow: 0 0 0 6px rgba(181, 0, 255, 0); }
+  100%{ box-shadow: 0 0 0 0 rgba(181, 0, 255, 0); }
+}
+.pulse-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-out infinite;
+}
+
+/* ── Matrix Canvas ────────────────────────────── */
+#matrix-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Animations ───────────────────────────────── */
+@keyframes flicker-in {
+  0%   { opacity: 0; transform: translateY(8px); }
+  60%  { opacity: 0.8; }
+  80%  { opacity: 0.6; }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes neon-glow-pulse {
+  0%,100% { box-shadow: 0 0 5px var(--primary-glow), 0 0 20px var(--primary-glow-sm); }
+  50%     { box-shadow: 0 0 12px var(--primary-glow), 0 0 40px var(--primary-glow-sm); }
+}
+.animate-flicker { animation: flicker-in 0.4s ease forwards; }
+.neon-pulse       { animation: neon-glow-pulse 3s ease-in-out infinite; }
+
+/* ── Toast ────────────────────────────────────── */
+.toast-container {
+  position: fixed;
+  top: 20px; right: 20px;
+  z-index: 10000;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.toast {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 18px;
+  background: var(--surface-3);
+  border-left: 3px solid var(--primary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  animation: flicker-in 0.3s ease forwards;
+  min-width: 250px;
+}
+.toast.error { border-color: var(--error); }
+
+/* ── Loading spinner ──────────────────────────── */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(0,0,0,0.3);
+  border-top-color: #050a0e;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
