@@ -6,6 +6,7 @@ if(!process.env.PORT){
     throw new Error("Port is not defined");
 }
 
+
 if(!process.env.MONGODB_URI){
     throw new Error("MongoDB URI is not defined");
 }
